@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Shadow DOM</title>
+    <style>
+        h1, h2, h3 {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="light">
+        <h1>This is the ordinary light DOM</h1>
+        <p>Paragraph in light DOM</p>
+        <div id="shadow">
+            <h2>This is the content of the shadow host node included via the <code>content</code> element</h2>
+        </div>
+    </div>
+    <script>
+        (function() {
+            'use strict';
+            var host = document.getElementById('shadow');
+            var shadow = host.createShadowRoot();
+            shadow.innerHTML = '<style>p{color:gray;}::content h2{color:green;}</style>';
+            shadow.innerHTML += '<content></content>';
+            shadow.innerHTML += '<p></p>';
+            var shadow = document.getElementById('shadow').shadowRoot;
+            var shadowParagraph = shadow.querySelector('p');
+            shadowParagraph.innerHTML += '...but this is content of the shadow dom itself';
+        }());
+    </script>
+</body>
+
+</html>
