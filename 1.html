@@ -7,16 +7,26 @@
     <style>
         h1, h2, h3 {
             color: red;
+            text-decoration: underline;
+        }
+        /* /deep/ combinator crosses shadow boundaries */
+        div /deep/ .theme {
+             color: SeaGreen;
+        }
+        /* ::shadow pseudo-element matches the shadow root if the element has at least one shadow tree */
+        ::shadow .theme {
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
     <div id="light">
-        <h1>This is the ordinary light DOM</h1>
-        <p>Paragraph in light DOM</p>
+        <h1>This is the ordinary Light DOM</h1>
+        <p>Paragraph in Light DOM</p>
+        <p class="theme">Light DOM paragraph with "theme" class</p>
         <div id="shadow">
-            <h2>This is the content of the shadow host node included via the <code>content</code> element</h2>
+            <h2>This is content from the host node included in the Shadow DOM via the <code>content</code> element</h2>
         </div>
     </div>
     <script>
@@ -24,9 +34,12 @@
             'use strict';
             var host = document.getElementById('shadow');
             var shadow = host.createShadowRoot();
+            // ::content pseudo-element targets notes from the host element even after they've been distributed with <content> into
+            // an insertion point in the shadow DOM.  They still maintain the styles from the document as well.
             shadow.innerHTML = '<style>p{color:gray;}::content h2{color:green;}</style>';
             shadow.innerHTML += '<content></content>';
             shadow.innerHTML += '<p></p>';
+            shadow.innerHTML += '<p class="theme">And this is a paragraph with the class "theme".</p>'
             var shadow = document.getElementById('shadow').shadowRoot;
             var shadowParagraph = shadow.querySelector('p');
             shadowParagraph.innerHTML += '...but this is content of the shadow dom itself';
