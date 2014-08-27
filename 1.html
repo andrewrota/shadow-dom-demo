@@ -36,7 +36,7 @@
             var shadow = host.createShadowRoot();
             // ::content pseudo-element targets nodes from the host element even after they've been distributed with <content> into
             // an insertion point in the shadow DOM.  They still maintain the styles from the document as well.
-            shadow.innerHTML = '<style>p{color:gray;}::content h2{color:green;}</style>';
+            shadow.innerHTML = '<style>p{color:gray;}::content h2{color:green;}:host{border: 1px solid gray;}</style>';
             shadow.innerHTML += '<content></content>';
             shadow.innerHTML += '<p></p>';
             shadow.innerHTML += '<p class="theme">And this is a paragraph with the class "theme".</p>'
