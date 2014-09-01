@@ -11,7 +11,7 @@
         }
         /* /deep/ combinator crosses shadow boundaries */
         div /deep/ .theme {
-             color: SeaGreen;
+            color: SeaGreen;
         }
         /* ::shadow pseudo-element matches the shadow root if the element has at least one shadow tree */
         ::shadow .theme {
@@ -41,10 +41,8 @@
             shadow.innerHTML += '<shadow></shadow>';
             shadow.innerHTML += '<p></p>';
             shadow.innerHTML += '<p class="theme">And this is a paragraph with the class "theme".</p>'
-            secondShadow.innerHTML = "<h5>Second Shadow Root</h5><div><content></content>"
-            var shadow = document.getElementById('shadow').shadowRoot;
-            var shadowParagraph = shadow.querySelector('p');
-            shadowParagraph.innerHTML += '...but this is content of the shadow dom itself';
+            secondShadow.innerHTML = "<h5>Second Shadow Root</h5><div><content></content>";
+            // access secondShadow's first shadow root with secondShadow.olderShadowRoot
         }());
     </script>
 </body>
