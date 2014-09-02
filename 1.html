@@ -33,16 +33,15 @@
         (function() {
             'use strict';
             var host = document.getElementById('shadow');
-            var shadow = host.createShadowRoot();
+            var firstShadow = host.createShadowRoot();
             var secondShadow = host.createShadowRoot();
             // ::content pseudo-element targets nodes from the host element even after they've been distributed with <content> into
             // an insertion point in the shadow DOM.  They still maintain the styles from the document as well.
-            shadow.innerHTML = '<style>p{color:gray;}::content h2{color:green;}:host{border: 1px solid gray;}</style>';
-            shadow.innerHTML += '<shadow></shadow>';
-            shadow.innerHTML += '<p></p>';
-            shadow.innerHTML += '<p class="theme">And this is a paragraph with the class "theme".</p>'
-            secondShadow.innerHTML = "<h5>Second Shadow Root</h5><div><content></content>";
-            // access secondShadow's first shadow root with secondShadow.olderShadowRoot
+            secondShadow.innerHTML = '<style>p{color:gray;}::content h2{color:green;}:host{border: 1px solid gray;}</style>';
+            secondShadow.innerHTML += '<p class="theme">Second Shadow Root, with a paragraph with the class "theme".</p>';
+            secondShadow.innerHTML += 'Start shadow insertion point: <shadow></shadow><br>End shadow insertion point.';
+            firstShadow.innerHTML = '<h5>First Shadow Root</h5><div><content></content>';
+            secondShadow.olderShadowRoot.innerHTML += '... And this is added from the second shadow root via <code>olderShadowRoot</code>';
         }());
     </script>
 </body>
