@@ -13,6 +13,9 @@
         div /deep/ .theme {
             color: SeaGreen;
         }
+        div /deep/ .theme-2 {
+            font-style: italic;
+        }
         /* ::shadow pseudo-element matches the shadow root if the element has at least one shadow tree */
         ::shadow .theme {
             font-weight: bold;
@@ -26,7 +29,7 @@
         <p>Paragraph in Light DOM</p>
         <p class="theme">Light DOM paragraph with "theme" class</p>
         <div id="shadow">
-            <h2>This is content from the host node included in the Shadow DOM via the <code>content</code> element</h2>
+            <h2>This is content from the <span class="theme-2">host</span> node included in the Shadow DOM via the <code>content</code> element</h2>
         </div>
     </div>
     <script>
@@ -38,7 +41,7 @@
             // ::content pseudo-element targets nodes from the host element even after they've been distributed with <content> into
             // an insertion point in the shadow DOM.  They still maintain the styles from the document as well.
             secondShadow.innerHTML = '<style>p{color:gray;}::content h2{color:green;}:host{border: 1px solid gray;}</style>';
-            secondShadow.innerHTML += '<p class="theme">Second Shadow Root, with a paragraph with the class "theme".</p>';
+            secondShadow.innerHTML += '<p class="theme">Second Shadow Root, with a <span class="theme-2">paragraph</span> with the class "theme".</p>';
             secondShadow.innerHTML += 'Start shadow insertion point: <shadow></shadow><br>End shadow insertion point.';
             firstShadow.innerHTML = '<h5>First Shadow Root</h5><div><content></content>';
             secondShadow.olderShadowRoot.innerHTML += '... And this is added to the first shadow root from the second shadow root via <code>olderShadowRoot</code>';
